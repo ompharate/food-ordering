@@ -15,7 +15,6 @@ model FoodItem {
   Category    String
   Description String
   
-  // Relations
   Review      Review[] 
 }
 
