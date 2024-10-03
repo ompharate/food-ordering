@@ -20,8 +20,6 @@ const homeFoods = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      
-
       <main>
         <section
           style={{
@@ -60,39 +58,35 @@ export default function Home() {
               Featured Foods
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {homeFoods.map(
-                (restaurant) => (
-                  <div
-                    key={restaurant.title}
-                    className="rounded-lg overflow-hidden shadow-lg bg-card"
-                  >
-                    <div className="h-48 bg-muted">
-                      <img
-                        src={restaurant.image}
-                        alt="home"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-semibold text-xl mb-2">
-                        {restaurant.title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        Delicious meals await you!
-                      </p>
-                      <Button className="mt-4" variant="outline">
-                        View Menu
-                      </Button>
-                    </div>
+              {homeFoods.map((restaurant) => (
+                <div
+                  key={restaurant.title}
+                  className="rounded-lg overflow-hidden shadow-lg bg-card"
+                >
+                  <div className="h-48 bg-muted">
+                    <img
+                      src={restaurant.image}
+                      alt="home"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                )
-              )}
+                  <div className="p-6">
+                    <h3 className="font-semibold text-xl mb-2">
+                      {restaurant.title}
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Delicious meals await you!
+                    </p>
+                    <Button className="mt-4" variant="outline">
+                      <Link href={"/menu"}>View Menu</Link>
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
       </main>
-
-     
     </div>
   );
 }

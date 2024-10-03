@@ -1,8 +1,10 @@
-import Link from 'next/link'
+"use client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import {  Star, Search } from 'lucide-react'
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/auth"
 
 const foodProducts = [
   { id: 1, name: "Margherita Pizza", price: 12.99, rating: 4.5, image: "/placeholder.svg?height=200&width=200" },
@@ -16,6 +18,11 @@ const foodProducts = [
 ]
 
 export default function FoodProductsPage() {
+  const { user } = useAuth();
+  const router = useRouter();
+  if(!user) {
+    router.push("/auth/login")
+  }
   return (
     <div className="min-h-screen bg-background">
     

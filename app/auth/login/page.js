@@ -16,8 +16,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
 
 export default function LoginPage() {
+  const { login } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("user");
@@ -47,7 +49,16 @@ export default function LoginPage() {
 
     const data = await res.json();
     if (res.ok) {
-      router.push("/menu");
+      const newUser = {
+        ...data.user,
+        role: activeTab === "user" ? "user" : "owner",
+      };
+      login(newUser);
+      if (newUser.role === "owner") {
+        return router.push("/admin/dashboard");
+      } else {
+        return router.push("/menu");
+      }
     } else {
       toast({
         title: data.error,
@@ -56,14 +67,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{
-      backgroundImage: "url('../auth.avif')",
-      backgroundPosition: "center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      minHeight: "100vh",
-      display: "flex",  
-    }} className="flex items-center justify-center min-h-screen ">
+    <div
+      style={{
+        backgroundImage: "url('../auth.avif')",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+        display: "flex",
+      }}
+      className="flex items-center justify-center min-h-screen "
+    >
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Login</CardTitle>

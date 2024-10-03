@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ClipboardList, PlusCircle, LogOut, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
+import Link from 'next/link'
 
 export default function AddNewFood() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -63,11 +64,11 @@ export default function AddNewFood() {
         <nav className="flex-1">
           <Button variant="ghost" className="w-full justify-start p-4">
             <ClipboardList className="mr-2 h-4 w-4" />
-            {sidebarOpen && <span>All Orders</span>}
+            {sidebarOpen && <Link href={"/admin/dashboard"}>All Orders</Link>}
           </Button>
-          <Button variant="ghost" className="w-full justify-start p-4 bg-muted">
+          <Button variant="ghost" className="w-full justify-start p-4">
             <PlusCircle className="mr-2 h-4 w-4" />
-            {sidebarOpen && <span>Add New Food</span>}
+            {sidebarOpen && <Link href={"/admin/dashboard/new"}>Add New Food</Link>}
           </Button>
         </nav>
         <Separator />
