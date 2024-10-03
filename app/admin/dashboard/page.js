@@ -13,8 +13,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-import { useAuth } from "@/context/auth";
-import { useRouter } from "next/navigation";
+
 
 // Mock data for orders
 const orders = [
@@ -45,12 +44,6 @@ const orders = [
 
 export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { user } = useAuth();
-  const router = useRouter();
-
-  if (user?.role !== "owner") {
-    return router.push("/menu");
-  }
 
   return (
     <div className="flex h-screen bg-gray-100">
