@@ -56,7 +56,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div style={{
+      backgroundImage: "url('../auth.avif')",
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      minHeight: "100vh",
+      display: "flex",  
+    }} className="flex items-center justify-center min-h-screen ">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Login</CardTitle>

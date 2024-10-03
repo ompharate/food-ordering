@@ -2,9 +2,8 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { ShoppingCart, Menu, Star, Search } from 'lucide-react'
+import {  Star, Search } from 'lucide-react'
 
-// Mock data for food products
 const foodProducts = [
   { id: 1, name: "Margherita Pizza", price: 12.99, rating: 4.5, image: "/placeholder.svg?height=200&width=200" },
   { id: 2, name: "Chicken Burger", price: 8.99, rating: 4.2, image: "/placeholder.svg?height=200&width=200" },
@@ -19,34 +18,9 @@ const foodProducts = [
 export default function FoodProductsPage() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold">FoodieExpress</span>
-          </Link>
-          <nav className="ml-auto flex items-center space-x-4 sm:space-x-6">
-            <Link href="/menu" className="text-sm font-medium hover:underline">
-              Menu
-            </Link>
-            <Link href="/about" className="text-sm font-medium hover:underline">
-              About
-            </Link>
-            <Link href="/contact" className="text-sm font-medium hover:underline">
-              Contact
-            </Link>
-            <Button size="icon" variant="ghost">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Shopping Cart</span>
-            </Button>
-            <Button size="icon" variant="ghost" className="md:hidden">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Menu</span>
-            </Button>
-          </nav>
-        </div>
-      </header>
+    
 
-      <main className="container py-8">
+      <main className="container py-8 max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Our Menu</h1>
         
         <div className="flex justify-between items-center mb-8">
@@ -89,15 +63,7 @@ export default function FoodProductsPage() {
         </div>
       </main>
 
-      <footer className="border-t py-6 mt-12">
-        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-          <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-            <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-              © 2023 FoodieExpress. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+   
     </div>
   )
 }
