@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Menu, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/context/auth";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/context/cart";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { cart } = useCart();
   const router = useRouter();
 
   useEffect(() => {
@@ -41,11 +45,23 @@ const Navbar = () => {
               Login
             </Link>
           )}
-
-          <Button size="icon" variant="ghost">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="sr-only">Shopping Cart</span>
-          </Button>
+          {user?.role !== "owner" ? (
+            <Link href={"/cart"}>
+              <Button size="icon" variant="ghost">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="sr-only">Shopping Cart</span>
+                <p className="font-semibold bg-gray-200 rounded-sm m-1">
+                  {cart.length}
+                </p>
+              </Button>
+            </Link>
+          ) : null}
+          {user && user?.role !== "owner"  ? (
+            <Avatar onClick={()=>alert("profile")}>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          ) : null}
           {user?.role !== "owner" ? (
             <Button size="icon" variant="ghost" className="md:hidden">
               <Menu className="h-5 w-5" />

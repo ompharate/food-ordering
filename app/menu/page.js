@@ -5,6 +5,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import {  Star, Search } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/auth"
+import { useEffect, useState } from "react"
+import { useCart } from "@/context/cart"
 
 const foodProducts = [
   { id: 1, name: "Margherita Pizza", price: 12.99, rating: 4.5, image: "/placeholder.svg?height=200&width=200" },
@@ -18,11 +20,29 @@ const foodProducts = [
 ]
 
 export default function FoodProductsPage() {
+  const [foodProducts, setFoodProducts] = useState([])
   const { user } = useAuth();
+  const {setProduct} = useCart();
   const router = useRouter();
   if(!user) {
     router.push("/auth/login")
   }
+
+
+  const fetchAllProducts = async () => {
+    const res = await fetch("/api/admin/product/all", {
+      method: "GET",
+    });
+
+    const data = await res.json();
+    setFoodProducts(data.foodItems);
+  };
+  useEffect(() => {
+    fetchAllProducts();
+   
+  }, []);
+
+
   return (
     <div className="min-h-screen bg-background">
     
@@ -45,25 +65,25 @@ export default function FoodProductsPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {foodProducts.map((product) => (
-            <Card key={product.id}>
+          {foodProducts.map((product,index) => (
+            <Card key={index}>
               <CardContent className="p-4">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.Image}
+                  alt={product.FoodName}
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
+                <h2 className="text-xl font-semibold mb-2">{product.FoodName}</h2>
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
+                  <span className="text-lg font-bold">₹{product.Price.toFixed(2)}</span>
                   <div className="flex items-center">
                     <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                    <span className="ml-1">{product.rating.toFixed(1)}</span>
+                    {/* <span className="ml-1">{product.rating.toFixed(1)}</span> */}
                   </div>
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Add to Cart</Button>
+                <Button onClick={()=>setProduct(product)}  className="w-full">Add to Cart</Button>
               </CardFooter>
             </Card>
           ))}

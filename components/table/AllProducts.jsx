@@ -8,8 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+
 
 export function AllProducts({ Products,deleteById }) {
   
@@ -29,7 +28,7 @@ export function AllProducts({ Products,deleteById }) {
         <TableBody>
           {Products?.map((Product, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">{index}</TableCell>
+              <TableCell className="font-medium">{index+1}</TableCell>
               <TableCell>{Product.FoodName}</TableCell>
               <TableCell>{Product.Price}</TableCell>
               <TableCell className="text-right">

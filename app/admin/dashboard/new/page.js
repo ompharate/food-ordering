@@ -107,23 +107,17 @@ export default function AddNewFood() {
       });
       toast({
         title: "Product deleted successfully!",
-        description: "The selected product has been deleted.",
-        type: "success",
       });
       setRefetch(true);
     } catch (error) {
       toast({
         title: "Error deleting product",
-        description:
-          "Failed to delete the selected product. Please try again later.",
-        type: "error",
       });
     }
   }
 
   return (
     <div className="flex h-screen bg-gray-100">
-     
       <aside
         className={`bg-white ${
           sidebarOpen ? "w-64" : "w-16"
