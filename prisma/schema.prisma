@@ -16,6 +16,7 @@ model FoodItem {
   Description String
   
   Review      Review[] 
+  OrderItems  OrderItem[] 
 }
 
 model Customer {
@@ -32,11 +33,24 @@ model Customer {
 }
 
 model Order {
-  OrderID      String   @id @default(uuid())
-  OrderDate    DateTime @default(now())
+  OrderID      String     @id @default(uuid())
+  OrderDate    DateTime   @default(now())
   TotalAmount  Float
   CustomerID   String
-  Customer     Customer @relation(fields: [CustomerID], references: [CustomerID])
+  Customer     Customer   @relation(fields: [CustomerID], references: [CustomerID])
+
+  OrderItems   OrderItem[]  
+}
+
+model OrderItem {
+  OrderItemID  String    @id @default(uuid())
+  OrderID      String
+  FoodItemID   String
+
+  Order        Order     @relation(fields: [OrderID], references: [OrderID], onDelete: Cascade)
+  FoodItem     FoodItem  @relation(fields: [FoodItemID], references: [FoodItemID], onDelete: Cascade)
+
+  Quantity     Int     
 }
 
 model Review {

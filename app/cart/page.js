@@ -45,7 +45,18 @@ const Cart = () => {
     return <CartEmpty />;
   }
 
-  const onBuy = () => {};
+  const onBuy = async () => {
+    try {
+      const res = await fetch("/api/user/buy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Add this line
+        },
+        body: JSON.stringify({ ids,totalPrice,customerId:user.customerID }),
+      });
+      clearCart();
+    } catch (error) {}
+  };
 
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -88,7 +99,10 @@ const Cart = () => {
                     </div>
 
                     <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                      <Link href="#" className="text-base font-medium text-gray-900 hover:underline dark:text-white">
+                      <Link
+                        href="#"
+                        className="text-base font-medium text-gray-900 hover:underline dark:text-white"
+                      >
                         {product.FoodName}
                       </Link>
 
@@ -171,7 +185,7 @@ const Cart = () => {
                 </dl>
               </div>
 
-              <Button className="w-full" href="#">
+              <Button onClick={onBuy} className="w-full" href="#">
                 Cash on Delivery
               </Button>
 
