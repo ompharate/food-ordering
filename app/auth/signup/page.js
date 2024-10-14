@@ -50,7 +50,7 @@ export default function SignUpPage() {
 
     const data = await res.json();
     if (res.ok) {
-      router.push("/login");
+      router.push("/auth/login");
     } else {
       toast({
         title: data.error,

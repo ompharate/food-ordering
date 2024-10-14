@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
 import { useCart } from "@/context/cart";
+import { useToast } from "@/hooks/use-toast";
 import { Router, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ function CartEmpty() {
 }
 
 const Cart = () => {
+  const { toast } = useToast()
   const { cart, clearCart, removeProduct } = useCart();
   const { user } = useAuth();
   console.log(user)
@@ -54,6 +56,10 @@ const Cart = () => {
         },
         body: JSON.stringify({ ids,totalPrice,customerId:user.CustomerID }),
       });
+      toast({
+        title: "Order Successfully Added",
+        description: Date.now() ,
+      })
       clearCart();
     } catch (error) {}
   };
