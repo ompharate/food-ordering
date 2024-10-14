@@ -12,7 +12,7 @@ export function CartProvider({ children }) {
   };
 
   const clearCart = () => {
-    setCart(null);
+    setCart([]);
   };
 
   const removeProduct = (productId) => {

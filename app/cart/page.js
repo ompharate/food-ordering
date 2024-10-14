@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth";
 import { useCart } from "@/context/cart";
-import { Router } from "lucide-react";
+import { Router, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +20,7 @@ function CartEmpty() {
 const Cart = () => {
   const { cart, clearCart, removeProduct } = useCart();
   const { user } = useAuth();
-
+  console.log(user)
   const router = useRouter();
 
   if (!user) {
@@ -50,9 +50,9 @@ const Cart = () => {
       const res = await fetch("/api/user/buy", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Add this line
+          "Content-Type": "application/json", 
         },
-        body: JSON.stringify({ ids,totalPrice,customerId:user.customerID }),
+        body: JSON.stringify({ ids,totalPrice,customerId:user.CustomerID }),
       });
       clearCart();
     } catch (error) {}
@@ -129,7 +129,7 @@ const Cart = () => {
                               d="M6 18 17.94 6M18 18 6.06 6"
                             />
                           </svg>
-                          Remove delete
+                          Remove 
                         </button>
                       </div>
                     </div>

@@ -12,6 +12,10 @@ const Navbar = () => {
   const { cart } = useCart();
   const router = useRouter();
 
+  const navigateToProfile = () => {
+    router.push(`/profile`);
+  };
+
   useEffect(() => {
     if (!user) {
       router.push("/auth/login");
@@ -56,8 +60,8 @@ const Navbar = () => {
               </Button>
             </Link>
           ) : null}
-          {user && user?.role !== "owner"  ? (
-            <Avatar onClick={()=>alert("profile")}>
+          {user && user?.role !== "owner" ? (
+            <Avatar className="cursor-pointer" onClick={navigateToProfile}>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>

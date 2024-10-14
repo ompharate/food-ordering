@@ -45,12 +45,10 @@ model Order {
 model OrderItem {
   OrderItemID  String    @id @default(uuid())
   OrderID      String
-  FoodItemID   String
+  FoodItemID   String 
 
   Order        Order     @relation(fields: [OrderID], references: [OrderID], onDelete: Cascade)
   FoodItem     FoodItem  @relation(fields: [FoodItemID], references: [FoodItemID], onDelete: Cascade)
-
-  Quantity     Int     
 }
 
 model Review {
