@@ -1,0 +1,74 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model FoodItem {
+  FoodItemID  String @id @default(uuid())
+  FoodName    String
+  Image       String
+  Price       Float
+  Category    String
+  Description String
+
+  Review       Review[]
+  OrderItems   OrderItem[]
+  Restaurant   Restaurant  @relation(fields: [RestaurantID], references: [RestaurantID]) // Relation to Restaurant
+  RestaurantID String
+}
+
+model Customer {
+  CustomerID String @id @default(uuid())
+  Name       String
+  Email      String @unique
+  Phone      String
+  Address    String
+  Password   String
+
+  Orders  Order[]
+  Reviews Review[]
+}
+
+model Order {
+  OrderID     String   @id @default(uuid())
+  OrderDate   DateTime @default(now())
+  TotalAmount Float
+  CustomerID  String
+  RestaurantID String
+  Customer    Customer @relation(fields: [CustomerID], references: [CustomerID])
+  OrderItems OrderItem[]
+}
+
+model OrderItem {
+  OrderItemID String @id @default(uuid())
+  OrderID     String
+  FoodItemID  String
+  Quantity    Int
+
+
+  Order    Order    @relation(fields: [OrderID], references: [OrderID], onDelete: Cascade)
+  FoodItem FoodItem @relation(fields: [FoodItemID], references: [FoodItemID], onDelete: Cascade)
+}
+
+model Review {
+  ReviewID     String   @id @default(uuid())
+  RDescription String
+  FoodItemID   String
+  CustomerID   String
+  FoodItem     FoodItem @relation(fields: [FoodItemID], references: [FoodItemID])
+  Customer     Customer @relation(fields: [CustomerID], references: [CustomerID])
+}
+
+model Restaurant {
+  RestaurantID String     @id @default(uuid())
+  Email        String
+  Password     String
+  Name         String
+  Location     String
+  Phone        String
+  Menu         FoodItem[]
+}
